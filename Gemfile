@@ -47,3 +47,5 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'devise-jwt', '~> 0.5.8'
 
 gem 'dotenv-rails'
+
+gem 'httparty'
