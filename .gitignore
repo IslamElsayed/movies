@@ -29,3 +29,4 @@
 .env
 .env.development
 .env.test
+coverage/
