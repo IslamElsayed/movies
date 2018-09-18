@@ -39,13 +39,13 @@ class Register extends Component {
                           password_confirmation: this.state.password_confirmation } 
       })
       .then(response => {
-          return <Redirect to='/' />
+          localStorage.setItem('user_jti', response.data.jti);
+          this.props.history.push('/')
       })
       .catch(error => 
-          console.log(error.response.data.errors[0])
-          // this.setState({
-          //     errors: error.response.data.errors[0]
-          // })
+          this.setState({
+              errors: error.response.data.errors[0]
+          })
       )
     }
 
