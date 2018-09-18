@@ -52,4 +52,3 @@ gem 'httparty'
 gem 'rack-cors', :require => 'rack/cors'
 
 gem 'pry-rails'
-
