@@ -30,7 +30,7 @@ class Movies extends Component {
 
     axios.get('http://localhost:3001/v1/favorites', { headers: headers })
     .then(response => { favoriteIds = response.data.map((favorite) => { return favorite.mdb_id }) })
-  
+
     axios.get('http://localhost:3001/v1/movies?keyword=' +keyword)
     .then(response => {
         this.setState({
@@ -111,7 +111,7 @@ class Movies extends Component {
               <h2 className="m_3">Search results</h2>
               <div className="search">
                 <form onSubmit={this.handleSearch}>
-                  <input name="keyword" type="text" placeholder="Search..." defaultValue={this.props.match.params.keyword} required/>
+                  <input name="keyword" type="text" placeholder="Search..." defaultValue={this.state.keyword} required/>
                   <input type="submit" value=""/>
                 </form>
               </div>
@@ -140,11 +140,12 @@ class Movies extends Component {
                             <li>Rating : &nbsp;&nbsp;
                               <p>{movie.vote_average}</p>
                             </li>
-                            { this.state.favoriteIds.indexOf(`${movie.id}`) == -1 &&
-                              <li><a href="#" onClick={this.addToFavorites} data-movie-id={movie.id}>Add to favorite</a></li>
-                            }
-                            { this.state.favoriteIds.indexOf(`${movie.id}`) != -1 &&
-                              <li><a href="#" onClick={this.removeFromFavorites} data-movie-id={movie.id}>Remove from favorite</a></li>
+                            { localStorage.getItem("user_jti") &&
+                              (this.state.favoriteIds.indexOf(`${movie.id}`) == -1 &&
+                                <li><a href="#" onClick={this.addToFavorites} data-movie-id={movie.id}>Add to favorite</a></li>)
+                                ||
+                               (this.state.favoriteIds.indexOf(`${movie.id}`) != -1 &&
+                                <li><a href="#" onClick={this.removeFromFavorites} data-movie-id={movie.id}>Remove from favorite</a></li>)
                             }
                             <div className="clearfix"> </div>
                           </ul>
@@ -157,7 +158,7 @@ class Movies extends Component {
                 </div>
               </div>
               <div className="clearfix"> </div>
-              {this.state.movies && 
+              {this.state.movies &&
                 <Pagination
                   activePage={this.state.response.page}
                   itemsCountPerPage={20}
