@@ -1,6 +1,6 @@
 class V1::MoviesController < ApplicationController
   def index
-    result = Movies::SearchService.new(params[:keyword], params[:page]).execute
+    result = Movies::SearchService.new(params[:keyword], params[:page] || 1).execute
     render json: result
   end
 
