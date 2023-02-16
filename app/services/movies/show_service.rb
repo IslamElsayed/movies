@@ -7,8 +7,9 @@ module Movies
     end
 
     private
-      def query_response_body
-        self.class.get("/3/movie/#{movie_id}", query: default_params).body
-      end
+
+    def query_response_body
+      self.class.get("/3/movie/#{movie_id}", query: default_params).body
+    end
   end
 end
